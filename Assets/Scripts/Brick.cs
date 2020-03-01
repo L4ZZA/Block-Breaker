@@ -28,7 +28,7 @@ public class Brick : MonoBehaviour {
 	}
 	
 	void OnCollisionEnter2D(Collision2D collision){
-		audio.Play();
+		GetComponent<AudioSource>().Play();
 		if(isBreakable){
 			HandleHits();
 		}

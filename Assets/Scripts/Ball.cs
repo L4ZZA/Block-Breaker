@@ -23,7 +23,7 @@ public class Ball : MonoBehaviour {
 			// wait for a click to launch.
 			if(Input.GetMouseButtonDown(0)){
 				started = true;
-				rigidbody2D.velocity = new Vector2(2f,10f);
+				GetComponent<Rigidbody2D>().velocity = new Vector2(2f,10f);
 			}
 		}
 	}
@@ -32,7 +32,7 @@ public class Ball : MonoBehaviour {
 		Vector2 tweak = new Vector2(Random.Range(0f,0.2f),Random.Range(0f,0.2f));
 		if(started){
 			//audio.Play();
-			rigidbody2D.velocity += tweak;
+			GetComponent<Rigidbody2D>().velocity += tweak;
 		}
 	}
 }
