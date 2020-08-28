@@ -892,6 +892,22 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 195804, guid: 341ee9f57c9e13e4886c271d4bd19f46, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 195806, guid: 341ee9f57c9e13e4886c271d4bd19f46, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 195808, guid: 341ee9f57c9e13e4886c271d4bd19f46, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 195814, guid: 341ee9f57c9e13e4886c271d4bd19f46, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
     - target: {fileID: 495810, guid: 341ee9f57c9e13e4886c271d4bd19f46, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -1219,7 +1235,8 @@ PrefabInstance:
       propertyPath: m_RootOrder
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 0}
   m_SourcePrefab: {fileID: 100100000, guid: f8cb85f67597dd745bb84b13b6bb3059, type: 3}
 --- !u!1001 &1240117998
 PrefabInstance:
@@ -1390,6 +1407,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 11448146, guid: 8178f3a9ac4964045bec81a98d789308, type: 3}
+      propertyPath: autoPlay
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8178f3a9ac4964045bec81a98d789308, type: 3}
 --- !u!114 &1600626271 stripped
@@ -1452,6 +1473,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 143822, guid: 69925051a0cf2f14fa0b567195665d1d, type: 3}
+      propertyPath: m_Name
+      value: GameManager
+      objectReference: {fileID: 0}
     - target: {fileID: 443822, guid: 69925051a0cf2f14fa0b567195665d1d, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -1784,6 +1809,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 545776555}
     m_Modifications:
+    - target: {fileID: 138862, guid: 1d05f1a7caeb17242a5b7dc598dd7c91, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
+      objectReference: {fileID: 0}
     - target: {fileID: 438862, guid: 1d05f1a7caeb17242a5b7dc598dd7c91, type: 3}
       propertyPath: m_LocalPosition.x
       value: 11.5

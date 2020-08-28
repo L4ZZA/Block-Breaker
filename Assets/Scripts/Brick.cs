@@ -1,67 +1,104 @@
 using UnityEngine;
 using System.Collections;
 
-public class Brick : MonoBehaviour {
-	
-	public AudioClip crack;
-	[Range(0f,2f)]
-	public float crakVolume = 0.5f;
-	public static int breakableCount=0;
-	public Sprite[] hitSprites;
-	public GameObject blockSparkleVFX;
-	
-	private LevelManager levelManager;
-	private int timesHit;
-	private bool isBreakable;
-	
-	// Use this for initialization
-	void Start () {
-		isBreakable = (this.tag == "Breakable");
-		if(isBreakable){
-			breakableCount++;
-		}
-		
-		timesHit = 0;
-		levelManager = FindObjectOfType<LevelManager>();
-	}
-	
-	void OnCollisionEnter2D(Collision2D collision){
-		GetComponent<AudioSource>().Play();
-		if(isBreakable){
-			HandleHits();
-		}
-	}
-	
-	void HandleHits(){
-		timesHit++;
-		int maxHits = hitSprites.Length +1;
-		if(timesHit >= maxHits){
-			breakableCount--;
-			Destroy(gameObject);
-			AudioSource.PlayClipAtPoint(crack, Camera.main.transform.position, crakVolume);
-			levelManager.BrickDestroyed();
-			TriggerSparkleVFX();
-		}
-		else{
-			LoadSprites();
-		}
-	}
+public class Brick : MonoBehaviour
+{
+    public AudioClip [] hitSounds;
+    [Range(0f, 2f)]
+    public float hitVolume = 0.5f;
+    // static field to keep count of the total breakable bricks
+    public static int breakableBlocksCount = 0;
+    public Sprite[] hitSprites;
+    public GameObject blockSparkleVFX;
 
-	void TriggerSparkleVFX()
+    private GameManager gameManager;
+    private SpriteRenderer spriteRenderer;
+    private int maxHits;
+    private int hitsTaken = 0;
+    private bool isBreakable;
+
+    // Use this for initialization
+    void Start()
     {
-		var particles = Instantiate(blockSparkleVFX, transform.position, transform.rotation);
-		Destroy(particles, 2f);
+        isBreakable = tag == "Breakable";
+        if (isBreakable)
+        {
+            breakableBlocksCount++;
+        }
+
+        maxHits = hitSprites.Length + 1;
+        hitsTaken = 0;
+        spriteRenderer = GetComponent<SpriteRenderer>();
+        gameManager = FindObjectOfType<GameManager>();
     }
-	
-	void LoadSprites(){
-		int spriteIndex = timesHit-1;
-		//if we forget to put the sprite
-		if(hitSprites[spriteIndex]){
-			GetComponent<SpriteRenderer>().sprite = hitSprites[spriteIndex];
-		}
-	}
-	
-	void SimulateWin(){
-		levelManager.LoadNextLevel();
-	}
+
+    void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (isBreakable)
+        {
+            HandleHits();
+        }
+        else
+        {
+            PlayHitSound(0);
+        }
+    }
+
+    void HandleHits()
+    {
+        hitsTaken++;
+        int hitSoundIndex = -1;
+
+        if (hitsTaken < maxHits)
+        {
+            // change sound clip
+            hitSoundIndex = 0;
+            // change sprite
+            LoadNextHitSprite();
+        }
+        else
+        {
+            hitSoundIndex = hitSounds.Length - 1;
+            breakableBlocksCount--;
+            Destroy(gameObject);
+            gameManager.BrickDestroyed();
+            TriggerSparkleVFX();
+        }
+        PlayHitSound(hitSoundIndex);
+    }
+
+    private void PlayHitSound(int hitSoundIndex)
+    {
+        if (hitSoundIndex < 0 || hitSoundIndex > hitSounds.Length)
+        {
+            Debug.LogError(gameObject.name + " - Can't play clips index out of bound: " + hitSoundIndex);
+            return;
+        }   
+
+        var currentClip = hitSounds[hitSoundIndex];
+        if (currentClip == null)
+            Debug.LogError(gameObject.name + " - No sound file found at index " + hitSoundIndex);
+        else
+            AudioSource.PlayClipAtPoint(currentClip, Camera.main.transform.position, hitVolume);
+    }
+
+    void TriggerSparkleVFX()
+    {
+        var particles = Instantiate(blockSparkleVFX, transform.position, transform.rotation);
+        Destroy(particles, 2f);
+    }
+
+    void LoadNextHitSprite()
+    {
+        int spriteIndex = (maxHits - 1) - hitsTaken;
+        //if we forget to assign the srite in the editor
+        if (hitSprites[spriteIndex])
+        {
+            spriteRenderer.sprite = hitSprites[spriteIndex];
+        }
+        else
+        {
+            Debug.LogError(gameObject.name + " - Sprite missing from array.");
+        }
+    }
 }
