@@ -2561,11 +2561,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 461060, guid: ceab8ad83ef78db47a20990361d78a2d, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 8.01
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 461060, guid: ceab8ad83ef78db47a20990361d78a2d, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.952
+      value: 0.789
       objectReference: {fileID: 0}
     - target: {fileID: 461060, guid: ceab8ad83ef78db47a20990361d78a2d, type: 3}
       propertyPath: m_LocalPosition.z
@@ -5714,7 +5714,7 @@ Transform:
   - {fileID: 814755233}
   - {fileID: 336562222}
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &1464558346 stripped
 Transform:
