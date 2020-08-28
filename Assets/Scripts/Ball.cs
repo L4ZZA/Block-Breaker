@@ -12,7 +12,6 @@ public class Ball : MonoBehaviour
     private Vector3 paddleToBallVector;
     private Rigidbody2D thisRigidBody2D;
     private AudioSource hitSound;
-    private GameObject previousGameObject = null;
     private Vector2 previousRelativeVelocity;
 
     // Use this for initialization
@@ -53,24 +52,17 @@ public class Ball : MonoBehaviour
                 hitSound.Play();
             }
 
-            if (previousGameObject != null)
-            {
-                Debug.Log("collision.relativeVelocity - " + collision.relativeVelocity.normalized);
-                Vector3 directionBeforeCollision = gameObject.transform.position - previousGameObject.transform.position;
-                Debug.Log("directionBeforeCollision - " + directionBeforeCollision.normalized);
-            }
-
-
             float minYVelocity = 1f;
-            // randomize if velocity is inverse to previous one
-            if(previousRelativeVelocity == collision.relativeVelocity * -1)
+            // randomize if a component of velocity is inverse to of the previous one
+            var inverseVelocity = collision.relativeVelocity * -1;
+            if (previousRelativeVelocity.x == inverseVelocity.x || 
+                previousRelativeVelocity.y == inverseVelocity.y)
             {
                 // randomize direction to prevent getting stuck
                 Vector2 velocityTweak = new Vector2(Random.Range(0f, randomFactor), 0f);
                 velocityTweak.y = Mathf.Max(velocityTweak.y, minYVelocity);
                 thisRigidBody2D.velocity += velocityTweak;
             }
-            previousGameObject = collision.gameObject;
             previousRelativeVelocity = new Vector2(collision.relativeVelocity.x, collision.relativeVelocity.y);
         }
     }
